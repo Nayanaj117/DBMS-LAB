@@ -52,29 +52,26 @@ insert into PARTICIPATED(driver_id,regno,report_no,damage_amt)values('1111','KA0
 COMMIT;
 desc PARTICIPATED ;
 SELECT *FROM PARTICIPATED;
-/*
-a. Update the damage amount for the car with a specific Regno in the accident with report number 12 to
-25000.
-*/
+
+                                                                                
 UPDATE PARTICIPATED SET DAMAGE_AMT=25000 WHERE REPORT_NO =12 AND REGNO='KA04Q2301';
 COMMIT;
 desc PARTICIPATED ;
 SELECT *FROM PARTICIPATED;
-/*
-b. Add a new accident to the database
-*/
+
+                                                                                
 insert into Accident(report_no,ADATE,Location)values('500',' 2005-06-02','Mysore Road');
 desc Accident;
 SELECT *FROM Accident;
 
-/*
-iv. Find the total number of people who owned cars that involved in accidents in 2008
-*/
+
+                                                                                
 select count(*) from Accident where year(ADATE)=2008;
 
-/*
-V. Find the number of accidents in which cars belonging to a specific model were involved
-*/
+
+                                                                                
 SELECT COUNT(A.REPORT_NO) FROM ACCIDENT A, PARTICIPATED P, CAR C
  WHERE A.REPORT_NO=P.REPORT_NO AND
  P.REGNO=C.REGNO AND C.MODEL='MARUTHI-DX';
+COMMIT;                                                                                
+                                                                                
