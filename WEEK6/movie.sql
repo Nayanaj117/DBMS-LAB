@@ -1,5 +1,5 @@
-CREATE DATABASE MOVIEDB;
-USE MOVIEDB;
+CREATE DATABASE MOVIE_DATABASE;
+USE MOVIE_DATABASE;
 
 -- 1. Create the above tables by properly specifying the primary keys and the foreign keys.
 
@@ -19,15 +19,15 @@ FOREIGN KEY(MOVIE_ID) REFERENCES MOVIES(MOVIE_ID) ON UPDATE CASCADE);
 
 INSERT INTO ACTOR(ACT_ID,ACT_NAME,ACT_GENDER) VALUES (1, 'Jake Gyllenhaal','MALE' ),
 													 (2, 'Rakshit Shetty','MALE'),
-													 (3, 'Alfred Hitchcock', 'MALE'),
+													 (3, 'Clint Eastwood', 'MALE'),
 													 (4, 'Zendaya Coleman','FEMALE'),
 													 (5, 'Anne Hathway','FEMALE');	
                                                      
-INSERT INTO DIRECTOR(DIR_ID, DIR_NAME, PHONE_NO) VALUES (1, 'Steven Spielberg', 9110626411),  
-														(2, 'Christopher Nolan', 9110626422),   
-                                                        (3, 'Clint Eastwood', 9110626433),   
-                                                        (4, 'Olivia Wilde', 9110626444),   
-                                                        (5, 'Greta Gerwig', 9110626455);
+INSERT INTO DIRECTOR(DIR_ID, DIR_NAME, PHONE_NO) VALUES (1, 'Steven Spielberg', 9362781210),  
+														(2, 'Christopher Nolan', 9362781211),   
+                                                        (3, 'Alfred Hitchcock', 9362781212),   
+                                                        (4, 'Olivia Wilde', 9362781213),   
+                                                        (5, 'Greta Gerwig', 9362781214);
 
 INSERT INTO MOVIES(MOVIE_ID,MOVIE_TITLE,MOVIE_YEAR,MOVIE_LANG,DIR_ID) VALUES(1,'The Terminal', 2004, 'ENG', 1),
 																			(2,'Dunkirk', 2017, 'ENG', 2),
@@ -81,4 +81,5 @@ SELECT M.MOVIE_TITLE, MAX(R.RATING_STARS) AS MAXIMUM_RATING FROM MOVIES M, RATIN
 -- 7. Update rating of all movies directed by ‘Steven Spielberg’ to 5. 
 UPDATE RATING SET RATING_STARS = 5 WHERE MOVIE_ID IN
 (SELECT M.MOVIE_ID FROM MOVIES M, DIRECTOR D WHERE M.DIR_ID = D.DIR_ID AND D.DIR_NAME='Steven Spielberg');      
-SELECT * FROM RATING; 
+SELECT * FROM RATING;
+COMMIT;
