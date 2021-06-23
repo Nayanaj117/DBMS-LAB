@@ -1,5 +1,5 @@
-CREATE DATABASE MOVIE_DATABASE;
-USE MOVIE_DATABASE;
+CREATE DATABASE MOVIE_DATA;
+USE MOVIE_DATA;
 
 -- 1. Create the above tables by properly specifying the primary keys and the foreign keys.
 
@@ -18,7 +18,7 @@ FOREIGN KEY(MOVIE_ID) REFERENCES MOVIES(MOVIE_ID) ON UPDATE CASCADE);
 -- 2. Enter at least five tuples for each relation.
 
 INSERT INTO ACTOR(ACT_ID,ACT_NAME,ACT_GENDER) VALUES (1, 'Jake Gyllenhaal','MALE' ),
-													 (2, 'Rakshit Shetty','MALE'),
+													 (2, 'Tom Hanks','MALE'),
 													 (3, 'Clint Eastwood', 'MALE'),
 													 (4, 'Zendaya Coleman','FEMALE'),
 													 (5, 'Anne Hathway','FEMALE');	
@@ -60,22 +60,23 @@ SELECT * FROM MOVIE_CAST;
 SELECT * FROM RATING;  
 
                                               
--- 3. List the titles of all movies directed by ‘Hitchcock’.
+/* 3. List the titles of all movies directed by ‘Hitchcock’.*/
 SELECT M.MOVIE_TITLE FROM MOVIES M,DIRECTOR D WHERE M.DIR_ID=D.DIR_ID AND D.DIR_NAME='Alfred Hitchcock';
 
--- 4. Find the movie names where one or more actors acted in two or more movies.
+/*4. Find the movie names where one or more actors acted in two or more movies.*/
 SELECT M.MOVIE_TITLE FROM ACTOR A,MOVIE_CAST C,MOVIES M WHERE A.ACT_ID=C.ACT_ID AND C.MOVIE_ID=M.MOVIE_ID 
-                                                        AND A.ACT_ID IN(SELECT ACT_ID FROM MOVIE_CAST GROUP BY ACT_ID HAVING COUNT(*)>=2);    
+AND A.ACT_ID IN(SELECT ACT_ID FROM MOVIE_CAST GROUP BY ACT_ID HAVING COUNT(*)>=2);    
 
--- 5. List all actors who acted in a movie before 2000 and also in a movie after 2015 (use JOIN operation).
+/* 5. List all actors who acted in a movie before 2000 and also in a movie after 2015 (use JOIN operation).*/
 SELECT A.ACT_NAME FROM ACTOR A 
 JOIN MOVIE_CAST MC ON A.ACT_ID=MC.ACT_ID
 JOIN MOVIES M ON MC.MOVIE_ID=M.MOVIE_ID 
 WHERE M.MOVIE_YEAR NOT BETWEEN 2000 AND 2015;
 
--- 6. Find the title of movies and number of stars for each movie that has at least one rating and find the highest
--- number of stars that movie received. Sort the result by movie title.
-SELECT M.MOVIE_TITLE, MAX(R.RATING_STARS) AS MAXIMUM_RATING FROM MOVIES M, RATING R WHERE M.MOVIE_ID = R.MOVIE_ID GROUP BY M.MOVIE_TITLE HAVING COUNT(R.RATING_STARS>=1) ORDER BY M.MOVIE_TITLE;
+/*6. Find the title of movies and number of stars for each movie that has at least one rating and find the highest
+number of stars that movie received. Sort the result by movie title.*/
+SELECT M.MOVIE_TITLE, MAX(R.RATING_STARS) AS MAXIMUM_RATING FROM MOVIES M, RATING R WHERE M.MOVIE_ID = R.MOVIE_ID 
+GROUP BY M.MOVIE_TITLE HAVING COUNT(R.RATING_STARS>=1) ORDER BY M.MOVIE_TITLE;
  
  
 -- 7. Update rating of all movies directed by ‘Steven Spielberg’ to 5. 
